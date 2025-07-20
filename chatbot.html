@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Layout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, rgb(211, 183, 211), rgba(112, 112, 199, 0.459), rgb(226, 187, 193));
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      padding: 5px 50px;
+      border-bottom: 2px solid grey;
+      font-weight: bold;
+    }
+
+    .response {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      border-top: 1px solid #ccc;
+    }
+
+    .input-wrapper {
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      font-size: 16px;
+      resize: none;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: rgb(223, 159, 223);
+      color: white;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .user-message {
+      background-color: white;
+      padding: 10px 15px;
+      max-width: 70%;
+      margin: 10px 0;
+      align-self: flex-end;
+      color: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-bottom-left-radius: 15px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .bot-message {
+      background-color: #e4e4e4;
+      padding: 10px 15px;
+      max-width: 70%;
+      margin: 10px 0;
+      align-self: flex-start;
+      color: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-bottom-right-radius: 15px;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>ChatBot 💬</h1>
+  </nav>
+
+  <div class="response" id="chatBox">
+  
+  </div>
+
+  <div class="input-area">
+    <div class="input-wrapper">
+      <textarea id="userInput" rows="1" placeholder="Type a message..."></textarea>
+      <button onclick="chat()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function chat() {
+  const input = document.getElementById("userInput");
+  const chatBox = document.getElementById("chatBox");
+  const message = input.value.trim();
+
+  if (message !== "") {
+    chatBox.innerHTML += `<div class="user-message">${message}</div>`;
+    input.value = "";
+
+  
+    let botReply = "Sorry, I’m still learning and only know simple answers for now. I hope to get smarter soon!";
+    
+    if (
+  message.toLowerCase() === "hi" ||
+  message.toLowerCase() === "hello" ||
+  message.toLowerCase() === "hey"
+) {
+  botReply = "Hi there! 😊 How are you?";
+
+    } else if (message.toLowerCase() === "how are you") {
+      botReply = "I'm just a bot, but I'm doing great! 🤖";
+    } else if (message.toLowerCase() === "what's your name") {
+      botReply = "I'm your friendly ChatBot!";
+    } else if (message.toLowerCase().includes("bye")) {
+      botReply = "Goodbye! Have a great day! 👋";
+    } else if (message.toLowerCase() === "what can you do") {
+      botReply = "I can answer simple questions and keep you company!";
+    } else if (message.toLowerCase().includes("tell me about yourself")) {
+      botReply = "I'm a friendly little chatbot built to chat, help, and learn new things! 🤖 Ask me anything!";
+    }
+
+    setTimeout(() => {
+      chatBox.innerHTML += `<div class="bot-message">${botReply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }, 500);
+  }
+}
+
+  </script>
+
+</body>
+</html>
